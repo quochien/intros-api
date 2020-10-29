@@ -7,6 +7,12 @@ class CopyController < ApplicationController
     render json: json_mapping
   end
 
+  def refresh
+    TableCopier.new.perform
+    @@copy_data = CopyLoader.new.perform
+    render json: @@copy_data
+  end
+
   private
 
   def json_mapping
@@ -15,9 +21,9 @@ class CopyController < ApplicationController
     copy_params.reject{ |k, _| k == 'key' }.each do |param, value|
       if (message.include? '{created_at, datetime}') && (param == 'created_at')
         created_at = Time.zone.at(value.to_i)
-        message.gsub! '{created_at, datetime}', created_at.strftime('%a %b %d %r')
+        message = message.gsub '{created_at, datetime}', created_at.strftime('%a %b %d %r')
       else
-        message.gsub! "{#{param}}", value
+        message = message.gsub "{#{param}}", value
       end
     end
 

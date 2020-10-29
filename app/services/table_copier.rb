@@ -17,8 +17,5 @@ class TableCopier
   def save_records_to_file(records)
     copy_data = records.map{ |record| [record[:key], record[:copy]] }.to_h
     File.write('public/copy.json', copy_data.to_json)
-    # File.open("public/copy.json", "w") do |f|
-    #   f.write(copy_data.to_json)
-    # end
   end
 end

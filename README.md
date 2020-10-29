@@ -16,3 +16,9 @@ curl "http://localhost:3000/copy/intro.created_at?created_at=1603814215"
 
 {"value":"Intro created on Tue Oct 27 03:56:55 PM"}
 ```
+
+```
+curl "http://localhost:3000/copy/refresh"
+
+{"bye":"Goodbye","intro.created_at":"Intro created on {created_at, datetime}","greeting":"Hello {name}, welcome to {app}!"}
+```
