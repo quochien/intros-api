@@ -1,24 +1,18 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+curl "http://localhost:3000/copy"
 
-Things you may want to cover:
+{"intro.created_at":"Intro created on Tue Oct 27 03:56:55 PM","greeting":"Hi {name}, welcome to {app}!"}
+```
 
-* Ruby version
+```
+curl "http://localhost:3000/copy/greeting?name=John&app=Bridge"
 
-* System dependencies
+{"value":"Hi John, welcome to Bridge!"}
+```
 
-* Configuration
+```
+curl "http://localhost:3000/copy/intro.created_at?created_at=1603814215"
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+{"value":"Intro created on Tue Oct 27 03:56:55 PM"}
+```

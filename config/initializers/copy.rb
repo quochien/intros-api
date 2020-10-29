@@ -1,1 +1,1 @@
-COPY_DATA = JSON.parse(File.read('public/copy.json'))
+@@copy_data = JSON.parse(File.read('public/copy.json'))
