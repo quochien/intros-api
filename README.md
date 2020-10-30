@@ -22,3 +22,15 @@ curl "http://localhost:3000/copy/refresh"
 
 {"bye":"Goodbye","intro.created_at":"Intro created on {created_at, datetime}","greeting":"Hello {name}, welcome to {app}!"}
 ```
+
+```
+curl "http://localhost:3000/copy?since=1604072183"
+
+{"bye":"Goodbye","greeting":"Hello {name}, welcome to {app}!"}
+```
+
+```
+curl "http://localhost:3000/copy/bye"
+
+{"value":"Goodbye"}%
+```

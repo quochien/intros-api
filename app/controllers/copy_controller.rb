@@ -1,6 +1,12 @@
 class CopyController < ApplicationController
   def index
-    render json: @@copy_data
+    if params[:since].present?
+      since = params[:since].to_i
+      key = (@@copy_data.keys - ['latest']).map(&:to_i).sort.find{ |x| x >= since }
+      render json: @@copy_data[key.to_s]
+    else
+      render json: @@copy_data['latest']
+    end
   end
 
   def show
@@ -16,7 +22,10 @@ class CopyController < ApplicationController
   private
 
   def json_mapping
-    message = @@copy_data[copy_params[:key]].to_s
+    return unless @@copy_data['latest']
+    return unless @@copy_data['latest'][copy_params[:key]]
+
+    message = @@copy_data['latest'][copy_params[:key]].to_s
 
     copy_params.reject{ |k, _| k == 'key' }.each do |param, value|
       if (message.include? '{created_at, datetime}') && (param == 'created_at')

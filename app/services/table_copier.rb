@@ -15,7 +15,17 @@ class TableCopier
   end
 
   def save_records_to_file(records)
-    copy_data = records.map{ |record| [record[:key], record[:copy]] }.to_h
+    updated_data = records.map{ |record| [record[:key], record[:copy]] }.to_h
+
+    copy_data = CopyLoader.new.perform
+    if latest_copy = copy_data['latest']
+      diff_data = (updated_data.to_a - latest_copy.to_a).to_h
+      copy_data[Time.current.to_i] = diff_data if diff_data.present?
+    else
+      copy_data[Time.current.to_i] = updated_data
+    end
+    copy_data['latest'] = updated_data
+
     File.write('public/copy.json', copy_data.to_json)
   end
 end
