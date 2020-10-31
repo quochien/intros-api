@@ -1,9 +1,9 @@
 class TableCopier
-  TABLE_NAME = "Table1"
+  TABLE_NAME = 'Table1'
+  FILE_PATH = 'public/copy.json'
 
   def perform
-    records = copy_records
-    save_records_to_file(records)
+    save_records_to_file(copy_records)
   end
 
   private
@@ -26,6 +26,6 @@ class TableCopier
     end
     copy_data['latest'] = updated_data
 
-    File.write('public/copy.json', copy_data.to_json)
+    File.write(FILE_PATH, copy_data.to_json)
   end
 end
